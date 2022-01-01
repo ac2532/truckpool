@@ -1,0 +1,66 @@
+{% extends "mainapp/base_ct.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="card col-md-4 mx-auto pt-2 pb-2">
+    <form method="POST" action="{% url 'mainapp:signup_ct' %}">
+        <div class="card-header">
+            <h3 class="card-title text-center">Sign Up as a Customer</h3>
+        </div>
+        <div class="card-body">
+            {% if error %}
+            <div class="alert alert-danger">
+                Please fill in all the fields
+            </div>
+            {% endif %}
+            {% if logout %}
+            <div class="alert alert-warning">
+                You were logged out of the system.
+            </div>
+            {% endif %}
+            {% csrf_token %}
+            <div class="form-group">
+                <label>First name or Company name</label>
+                <input type="text" class="form-control" placeholder="First name" name="first_name">
+            </div>
+
+            <div class="form-group">
+                <label>Last name (leave blank if you are a business account)</label>
+                <input type="text" class="form-control" placeholder="Last name" name="last_name">
+            </div>
+
+            <div class="form-group">
+                <label>E-mail</label>
+                <input type="email" class="form-control" placeholder="Email" name="email">
+            </div>
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" placeholder="Username" name="username">
+            </div>
+
+            <div class="form-group">
+                <label>Contact Number</label>
+                <input type="text" class="form-control" placeholder="Contact No" name="contactNo">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" placeholder="Password" name="password">
+            </div>
+
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-block btn-primary">Sign up</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

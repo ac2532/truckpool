@@ -1,0 +1,50 @@
+{% extends "mainapp/base_td.html" %}
+{% block content %}
+{% load static %}
+
+<div class="text-center">
+    <div class = "jumbotron text-center">
+        <h4>Welcome to</h4> <img width="120" src="{% static 'mainapp/truckpool.png' %}"><br><br>
+        <h5>An effective and eco-friendly way to transport cargos</h5>
+        <h6>Truckpool puts you in contact with individuals and businesses.</h6>
+        <h6>Our truck-sharing system relies on optimization algorithms in order to cut CO2 emissions, <br>reduce the time you spend on the roads and maximize your truck's capacity.</h6>
+    </div>
+</div><br>
+
+<div class="row">
+    <div class="card col-md-5 mx-auto pt-3 pb-5">
+
+        <div class="card-header">
+            <h3 class="text-center"> <img width="50" src="{% static 'mainapp/pickup.png' %}"> Most asked for pick up location today:</h3> 
+        </div>
+
+        <ul class="list-group">
+        {% for pickup_top in pickup_tops %}
+            <li class="list-group-item d-flex justify-content-between" >
+                <span><strong>{{pickup_top.0}}</strong>: {{pickup_top.1}} times</span>
+            </li>
+        {% endfor %}
+        </ul>
+    </div> 
+
+    <div class="card col-md-5 mx-auto pt-3 pb-5">
+        <div class="card-header">
+            <h3 class="text-center"> <img width="50" src="{% static 'mainapp/dropoff.png' %}"> Most asked for drop off location today:</h3> 
+        </div>
+        <ul class="list-group">
+        {% for dropoff_top in dropoff_tops %}
+            <li class="list-group-item d-flex justify-content-between" >
+                <span><strong>{{dropoff_top.0}}</strong>: {{dropoff_top.1}} times</span>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

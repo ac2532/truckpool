@@ -1,0 +1,18 @@
+
+{% extends "mainapp/base_ct.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="alert alert-success">
+    Welcome! You are now signed up!<br>
+    <a href="{% url 'mainapp:signin' %}">Go to Log in</a>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

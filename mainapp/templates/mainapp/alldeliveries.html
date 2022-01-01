@@ -1,0 +1,74 @@
+{% extends "mainapp/base_td.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="card col-md-7 mx-auto pt-3 pb-5">
+
+    <div style="background-color:#D4E3D4" class="card-header">
+            <h3 class="card-title text-center">All my itineraries</h3>
+    </div>
+
+    <ul class="list-group">
+    {% for itinerary in itineraries %}
+        <li class="list-group-item d-flex justify-content-between" >
+            <div>
+                <span> From<br><i class="fa fa-map-marker" aria-hidden="true"></i> {{itinerary.departureLocation}} <i class="fa fa-calendar" aria-hidden="true"></i> {{itinerary.departureDate}}</span><br>
+                
+                <span>To <br><i class="fa fa-map-marker" aria-hidden="true"></i> {{itinerary.arrivalLocation}} <i class="fa fa-calendar" aria-hidden="true"></i> {{itinerary.arrivalDate}}</span>
+            </div>
+            <div>
+                <button  style="background-color:#FDCF3F; border:#F1CE3D" type="button" class="btn btn-block btn-sm btn-info" data-toggle="modal" data-target="#exampleModal{{itinerary.id}}"><i class="fa fa-map-signs" aria-hidden="true"></i> See Itinerary Stops</button>
+                <a class="btn btn-block btn-sm btn-warning" href="{% url 'mainapp:td_select_booking' itinerary.id %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add bookings to this itinerary</a>
+                <a class="btn btn-block btn-danger btn-sm" href="{% url 'mainapp:delete_itinerary' itinerary.id %}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+            </div>
+            
+            
+        </li>
+
+            <div class="modal fade" id="exampleModal{{itinerary.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div style="background-color:#D4E3D4" class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                <span> <i class="fa fa-map-marker" aria-hidden="true"></i> {{itinerary.departureLocation}} to {{itinerary.arrivalLocation}} </span>
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% for stop in stops %}
+                                {% if stop.td_itinerary == itinerary %}
+                                    <li class="list-group-item">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>{{stop.pickUpLocation}} to {{stop.dropOffLocation}}
+                                        <br><i class="fa fa-clock-o" aria-hidden="true"></i>{{stop.pickUpDate}} at {{stop.pickup_time}} / {{stop.dropOffDate}} at {{stop.dropoff_time}} 
+                                        <br><i class="fa fa-address-card-o" aria-hidden="true"></i> {{stop.customer}} : {{stop.customer.contactNo}}
+                                        {% if stop.pickup_time == None %}
+                                            <br><a style="background-color:#90C190" class="btn btn-sm btn-success" href="{% url 'mainapp:input_time' booking=stop.id %}"><i class="fa fa-hourglass-half" aria-hidden="true"></i> Input Time</a>
+                                        {% endif %}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-info btn-sm" href="{% url 'mainapp:load_truck' itinerary=itinerary.id %}"><i class="fa fa-info" aria-hidden="true"></i> Helpful information to load your Truck</a>
+                            <button type="button btn-sm" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    {% endfor %}
+    </ul>
+
+
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

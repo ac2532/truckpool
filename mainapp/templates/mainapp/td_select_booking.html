@@ -1,0 +1,64 @@
+{% extends "mainapp/base_td.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="row">
+
+    <div class="card col-md-7 mx-auto pt-3 pb-5">
+
+        <div style="background-color:#D4E3D4" class="card-header">
+                <h5 class="card-title text-center">Booking Suggestions for</h5>
+                <h5 class="card-title text-center">for</h5>
+                <h3 class="card-title text-center">{{itinerary.departureLocation}} to {{itinerary.arrivalLocation}}</h3>
+                <h6 class="card-title text-center">{{itinerary.departureDate}} / {{itinerary.arrivalDate}}</h6>
+        </div>
+
+        <ul class="list-group">
+        {% for booking in eligible_bookings %}
+            <li class="list-group-item d-flex justify-content-between" >
+                <span> <i class="fa fa-map-marker" aria-hidden="true"></i> From {{booking.pickUpLocation}} to {{booking.dropOffLocation}}<br> <i class="fa fa-calendar" aria-hidden="true"></i> {{booking.pickUpDate}}/{{booking.dropOffDate}}</span>
+                <br><span><i class="fa fa-credit-card" aria-hidden="true"></i> {{booking.full_price}} GBP </span>
+                <br><span><i class="fa fa-inbox" aria-hidden="true"></i> {{booking.full_volume}} m<sup>3</sup> </span>
+                <a class="btn btn-primary" href="{% url 'mainapp:td_take_booking' itinerary=itinerary.id booking=booking.id %}"><i class="fa fa-plus" aria-hidden="true"></i> Take booking</a>
+            </li>
+
+            
+
+        {% endfor %}
+        </ul>
+
+        <div style="background-color:#D4E3D4" class="card-header">
+                <h4 class="card-title text-center">Other Bookings</h4>
+        </div>
+
+        <ul class="list-group">
+        {% for booking in rest %}
+            <li class="list-group-item d-flex justify-content-between" >
+                <span> <i class="fa fa-map-marker" aria-hidden="true"></i> From {{booking.pickUpLocation}} to {{booking.dropOffLocation}}<br> <i class="fa fa-calendar" aria-hidden="true"></i> {{booking.pickUpDate}}/{{booking.dropOffDate}}</span>
+                <br><span><i class="fa fa-credit-card" aria-hidden="true"></i> {{booking.full_price}} GBP </span>
+                <button type="button" class="btn btn-primary" ><i class="fa fa-plus" aria-hidden="true"></i> Add booking</button>
+            </li>
+
+        {% endfor %}
+        </ul>
+    </div>
+
+
+    <div style="height: 14rem;" class ="card col-md-4 mx-auto pt-3 ">
+        <div style="background-color:#D4E3D4" class="card-header text-center">
+            <h7> <i class="fa fa-info" aria-hidden="true"></i>   Additional information </h7>
+        </div><br>
+        <span>Your truck's maximum capacity: {{truck.volume}} m<sup>3</sup></span><br>
+        <span>Remaining volume: {{itinerary.remainingVolume}} m<sup>3</sup> </span><br>
+        <span>Volume used by other bookings: {{vol_others}} m<sup>3</sup> </span><br>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

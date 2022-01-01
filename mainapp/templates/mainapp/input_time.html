@@ -1,0 +1,38 @@
+
+{% extends "mainapp/base_td.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="card col-md-6 mx-auto pt-2 pb-2">
+    <form method="POST" action="{% url 'mainapp:input_time' booking.id%}">
+        <div style="background-color:#D4E3D4" class="card-header">
+            <h4 class="card-title text-center">Input Pick Up and Drop Off Time for:</h4>
+            <h5 class="card-title text-center">{{booking.pickUpLocation}} to {{booking.dropOffLocation}}</h5>
+            <h5 class="card-title text-center">{{booking.pickUpDate}} / {{booking.dropOffDate}}</h5>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Pick Up Time (HH:MM):</label>
+                <input type="time" class="form-control" placeholder="Pick Up" name="pickup">
+            </div>
+
+            <div class="form-group">
+                <label>Drop Off Time (HH:MM):</label>
+                <input type="time" class="form-control" placeholder="Drop Off" name="dropoff">
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-block btn-primary">Confirm Schedule</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

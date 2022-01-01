@@ -1,0 +1,18 @@
+
+{% extends "mainapp/base_td.html" %}
+{% block content %}
+{% load static %}
+
+
+<div style="background-color:#9DB866" class="alert alert-danger text-center col-md-4 mx-auto pt-3">
+    You have not added your truck yet.<br>
+    Please add it here:<br><br>
+    <a  class="btn btn-primary" href="{% url 'mainapp:mytruck' %}">Add truck</a>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

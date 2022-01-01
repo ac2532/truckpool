@@ -1,0 +1,19 @@
+{% extends "mainapp/base_td.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="alert alert-success text-center col-md-5 mx-auto">
+    <i class="fa fa-check-circle" style="font-size:48px;color:green"></i><br>
+    <h4>Your new itinerary has been added successfully!</h4><br>
+    <a href="{% url 'mainapp:newdelivery' %}">Add another delivery</a><br>
+    <a href="{% url 'mainapp:alldeliveries'%}">See my deliveries</a><br>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

@@ -1,0 +1,18 @@
+{% extends "mainapp/base_td.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="alert alert-success text-center col-md-5 mx-auto">
+    The booking has been added successfully to your itinerary!<br>
+    <a href="{% url 'mainapp:td_select_booking' itinerary=id %}">Add another booking to your itinerary</a><br>
+    <a href="{% url 'mainapp:alldeliveries' %}">See my itineraries</a><br>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

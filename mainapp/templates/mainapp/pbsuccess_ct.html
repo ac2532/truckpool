@@ -1,0 +1,16 @@
+{% extends "mainapp/base_ct.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="alert alert-success text-center col-md-5 mx-auto">
+    Thank you for your feedback! We will review your message and get back to you as soon as possible.<br>
+    <a href="{% url 'mainapp:index_ct' %}"><i class="fa fa-home" aria-hidden="true"></i>Go to homepage</a>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

@@ -1,0 +1,134 @@
+{% extends "mainapp/base_ct.html" %}
+
+
+{% block content %}
+{% load static %}
+<style>
+    .parcel-size{
+        height: 30px
+    }
+</style>
+
+<div class="card col-md-10 mx-auto pt-2 pb-2">
+    <form method="POST" action="{% url 'mainapp:add_item' %}">
+        <div style="background-color:#D4E3D4" class="card-header">
+            <h3 class="card-title text-center">Add your parcel</h3>
+        </div>
+        <div class="card-body">
+            {% if error %}
+            <div class="alert alert-danger">
+                Please fill in all the fields
+            </div>
+            {% endif %}
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Select Booking</label><br>
+                <select id="booking" name="booking" class="selectpicker" data-live-search="true">
+                    {% for booking in bookings%}
+                        <option value="{{booking.id}}">{{booking.pickUpLocation}} → {{booking.dropOffLocation}} | {{booking.pickUpDate}} → {{booking.dropOffDate}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <img width="30" src="{% static 'mainapp/measure-g.png' %}">
+                <label>Select Parcel Size: </label>
+                <div class="form-check parcel-size">
+                    <input class="form-check-input" type="radio" name="size" value ="N" id="N/A" checked>
+                    <label class="form-check-label" for="N/A">
+                        Not-applicable: item(s) not in a cardbox
+                    </label>
+                </div>
+                <div class="form-check parcel-size">
+                    <input class="form-check-input" type="radio" onClick="calculateVolume('0.45', '0.35', '0.16')" name="size" value ="S" id="S">
+                    <img width="20" src="{% static 'mainapp/open-box.png' %}">
+                    <label class="form-check-label" for="S">
+                        Small size parcels (lxwxh: 45cm x 35cm x 16cm, <2kg)
+                    </label>
+                </div>
+                <div class="form-check parcel-size">
+                    <input class="form-check-input" type="radio" onClick="calculateVolume('0.61', '0.46', '0.46')" name="size" value ="M" id="M">
+                    <img width="30" src="{% static 'mainapp/open-box.png' %}">
+                    <label class="form-check-label" for="M">
+                        Medium Size Parcels (lxwxh: 61cm x 46cm x 46cm, <20kg)
+                    </label>
+                </div>
+                <div class="form-check parcel-size">
+                    <input class="form-check-input" type="radio" onClick="calculateVolume('1.5', '1.5', '1.5')" name="size" value ="L" id="L">
+                    <img width="40" src="{% static 'mainapp/open-box.png' %}">
+                    <label class="form-check-label" for="L">
+                        Large Size Parcels (lxwxh: 150cm x 150cm x 150cm, <30kg)
+                    </label>
+                </div>
+            </div>
+
+            <div class> 
+            <img width="30" src="{% static 'mainapp/measure-g.png' %}">
+            <label>If not-applicable, input item measurment (in m): </label>
+            </div>
+            <div class="input-group mb-3">
+                <input type="number" step="0.01" class="form-control" placeholder="Length" id="length" name="length">
+                <input type="number" step="0.01" class="form-control" placeholder="Width" id="widthData" name="width">
+                <input type="number" step="0.01" class="form-control" placeholder="Height" onKeyUp="calculateVolume(length.value, widthData.value, heightData.value)" id="heightData" name="height">
+                <input type="button" class="btn btn-secondary" id="calculate" onClick="calculateVolume(length.value, widthData.value, heightData.value)" value="Calculate Volume"/>
+                <input type="number" step="0.01" class="form-control" placeholder="Volume" id="volume" name="volume">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">m<sup>3</sup></span>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <img height="35" width="35" src="{% static 'mainapp/scale.png' %}">
+                <label>Weight of the item</label><br>
+                <div class="input-group">
+                    <input type="number" step="0.01" class="form-control" placeholder="Weight" name="weight">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">kgs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Describe the item(s)</label>
+                <textarea class="form-control" placeholder="Description" rows="3" name="description"></textarea>
+            </div>
+
+            <div class="input-group mb-3">
+                <img height="30" width="35" src="{% static 'mainapp/money-g.png' %}">
+                <input style="color:black" type="number" readonly step="0.01" class="form-control" placeholder="Price Estimation" id="price" name="price">
+                <div class="input-group-prepend">
+                    <span style="color:black" class="input-group-text">GBP</span>
+                </div>
+                <input type="button" class="btn btn-secondary" onClick="calculatePrice(volume.value, weight.value)" value="Calculate Price"/>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-block btn-primary">Add item to booking</button>
+            </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    var $ = function(id) {
+        return document.getElementById(id);
+    };
+    var amountVolume = 0;
+    function calculateVolume(length, width, height) {
+        console.log(length,width,height);
+        amountVolume = parseFloat(length) * parseFloat(width) * parseFloat(height);
+        var volumeRound = amountVolume.toFixed(2);
+        $('volume').value = volumeRound;
+    };
+
+    function calculatePrice(volume, weight) {
+        console.log(volume,weight);
+        amountVolume = (parseFloat(volume) * 0.3) + (parseFloat(weight) * 1.5);
+        var volumeRound = amountVolume.toFixed(2);
+        $('price').value = volumeRound;
+    };
+</script>
+{% endblock scripts %}

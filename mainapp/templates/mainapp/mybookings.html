@@ -1,0 +1,92 @@
+{% extends "mainapp/base_ct.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="card col-md-6 mx-auto pt-3 pb-5">
+
+    <div style="background-color:#D4E3D4" class="card-header justify-content-between text-center">
+            <h3 class="card-title ">My bookings</h3>
+            <a style="background-color:#6B9D6B" class="btn btn-primary" href="{% url 'mainapp:add_item' %}"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add items to deliver along booking</a>
+    </div>
+
+    <ul class="list-group">
+    {% for booking in bookings %}
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between" >
+                <span><strong>{{booking.name}}</strong><br> <i class="fa fa-map-marker" aria-hidden="true"></i> {{booking.pickUpLocation}} to {{booking.dropOffLocation}}<br><i class="fa fa-calendar" aria-hidden="true"></i> {{booking.pickUpDate}}/{{booking.dropOffDate}}<br><i class="fa fa-credit-card" aria-hidden="true"></i> {{booking.full_price}} GBP </span>
+                <div>
+                    <button type="button" class="btn btn-block btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal{{booking.id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> See Items</button>
+                    {% if booking.assigned is False %}
+                        <a class="btn btn-block btn-danger btn-sm" href="{% url 'mainapp:delete_booking' booking.id %}"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if booking.assigned is True %}
+                <span class="badge badge-success">Confirmed</span>
+                <span class="badge badge-info"><i class="fa fa-truck" aria-hidden="true"></i> : {{booking.td_itinerary.truckDriver.user.first_name}}</span>
+                {% for truck in trucks %}
+                    {% if truck.truckDriver == booking.td_itinerary.truckDriver%}
+                        <span style="background-color:#72ABDD" class="badge badge-info"><i class="fa fa-truck" aria-hidden="true"></i> : {{truck.plateNo}}</span>
+                    {% endif %}
+                {% endfor %}
+                <span class="badge badge-warning"><i class="fa fa-clock-o" aria-hidden="true"></i> Pick Up: {{booking.pickup_time}}</span>
+                {% if booking.dropoff_time is None%}
+                    <span style="background-color:#F1CE3D" class="badge"><i class="fa fa-clock-o" aria-hidden="true"></i> Drop Off: impending</span>
+                {% else %}
+                    <span style="background-color:#F1CE3D" class="badge"><i class="fa fa-clock-o" aria-hidden="true"></i> Drop Off: {{booking.dropoff_time}}</span>
+                {% endif %}
+
+            {% else %}
+                <span  style="background-color:#9CA0AC" class="badge btn-info">Awaiting for confirmation...</span>
+            {% endif %}
+        </li>
+        
+         
+        <div class="modal fade" id="exampleModal{{booking.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            <span><strong>{{booking.name}}</strong><br> <i class="fa fa-map-marker" aria-hidden="true"></i> {{booking.pickUpLocation}} to {{booking.dropOffLocation}} <br><i class="fa fa-calendar" aria-hidden="true"></i> {{booking.pickUpDate}}/{{booking.dropOffDate}}</span>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        {% for item in items %}
+                            {% if item.booking == booking %}
+                                <li class="list-group-item">
+                                    <div class="d-flex justify-content-between">
+                                        {{item.description}}
+                                        <a class="btn btn-danger btn-sm" href="{% url 'mainapp:delete_item' item.id %}">Delete</a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+
+        
+    {% endfor %}
+    </ul>
+
+
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

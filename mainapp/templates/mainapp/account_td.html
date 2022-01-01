@@ -1,0 +1,58 @@
+{% extends "mainapp/base_td.html" %}
+{% block content %}
+{% load static %}
+<div>
+    <div style="background-color:#D4E3D4" class="card-header">
+        <h1 class="card-title text-center">My account</h1>
+    </div><br>
+    <div class="row">
+
+        <div class="mx-auto col-md-6 col-xs-12">
+            <div class="card card-body mx-2">
+                <h2 class="text-center">Account information</h2>
+                <h5><strong>Username: </strong> {{profile.user.username}}</h5>
+                <h5><strong>First Name: </strong> {{profile.user.first_name}}</h5>
+                <h5><strong>Last Name: </strong> {{profile.user.last_name}}</h5>
+                <h5><strong>Contact Number: </strong> {{profile.contactNo}}</h5>
+                <h5><strong>Driving Licence Number: </strong> {{profile.drivingLicenceNo}}</h5>
+            </div>
+        </div>
+
+        <div class="mx-auto col-md-5 col-xs-12">    
+            <div class="card card-body mx-2">
+                <h2 class="text-center">Driving Licence</h2>
+                {% if uploaded %}
+                <div class="alert alert-success">Driving Licence added.</div>
+                {% endif %}
+                {% if profile.drivinglicence %}
+                    <img width="100px" class="mx-auto" src="/media/{{profile.drivinglicence}}"><br>
+                {% else %}
+                    <h2 class="badge badge-danger">No file</h2> 
+                {% endif %}
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#edit" aria-expanded="false" aria-controls="collapseExample">
+                    {% if profile.drivinglicence %} Change {% else %} Add {% endif %} driving licence
+                </button>
+                {% if profile.drivinglicence %}
+                    <a class="btn btn-block btn-danger" href="{% url 'mainapp:remove_picture' %}">Remove driving licence</a><br>
+                {% endif %}
+
+                <form method="post"  class="collapse" id="edit" enctype="multipart/form-data" class="card">
+                    {% csrf_token %}
+                    <h3 class="card-title card-header">{% if profile.drivinglicence %} Update {% else %} New {% endif %} driving licence</h3>
+                    <div class="card-body">
+                        <input type="file" name="myfile">
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-block btn-success">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

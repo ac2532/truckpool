@@ -1,0 +1,21 @@
+{% extends "mainapp/base_ct.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="alert alert-success text-center col-md-5 mx-auto">
+
+    <i class="fa fa-check-circle" style="font-size:48px;color:green"></i><br><br>
+    <h4>Your booking has been added successfully!</h4><br>
+    <a href="{% url 'mainapp:booking' %}">Add another booking</a><br>
+    <a href="{% url 'mainapp:mybookings' %}">See my bookings</a><br>
+    <a href="{% url 'mainapp:add_item' %}">Add items to deliver</a>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

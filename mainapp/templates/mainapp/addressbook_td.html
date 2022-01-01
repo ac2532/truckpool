@@ -1,0 +1,30 @@
+{% extends "mainapp/base_td.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="card col-md-6 mx-auto pt-3 pb-5">
+
+    <div style="background-color:#D4E3D4" class="card-header">
+        <h3 class="text-center"> <img width="50" src="{% static 'mainapp/map.png' %}"> Address Book</h3> 
+    </div>
+
+    <ul class="list-group">
+    {% for city in cities %}
+        <li class="list-group-item d-flex justify-content-between" >
+            <span><strong>{{city.city_name}}</strong><br> <img width="15" src="{% static 'mainapp/pin.png' %}"> {{city.address}} </span>
+        </li>
+        
+    {% endfor %}
+    </ul>
+
+
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

@@ -1,0 +1,19 @@
+{% extends "mainapp/base.html" %}
+{% block content %}
+{% load static %}
+
+<form method="post" action="">
+{% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label"> Total Volume: {{total}} </label>
+    </div>
+
+</form>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

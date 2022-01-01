@@ -1,0 +1,100 @@
+{% extends "mainapp/base_td.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="row">
+
+    <div class="card col-md-12 mx-auto pt-3 pb-5">
+
+        <div style="background-color:#D4E3D4" class="card-header">
+                <h5 class="card-title text-center">Load your truck</h5>
+                <h5 class="card-title text-center">for</h5>
+                <h3 class="card-title text-center">{{itinerary.departureLocation}} to {{itinerary.arrivalLocation}}</h3>
+                <h6 class="card-title text-center">{{itinerary.departureDate}} / {{itinerary.arrivalDate}}</h6>
+        </div>
+        <div class="row">
+        
+            <div class="card col-md-4 mx-auto pt-3 pb-5">
+                <h8>Ordered by drop-off dates (last drop-off first)</h8>
+                <ul class="list-group">
+                    {% for last_dropoff in last_dropoffs %}
+                        <li class="list-group-item d-flex justify-content-between" >
+                            <span> Item: <br>{{last_dropoff.description}} <br> (volume = {{last_dropoff.volume}}, <br>weight = {{last_dropoff.weight}})</span>
+                            {% for booking in bookings %}
+                                {% if last_dropoff.booking == booking %}
+                                    <span> Booking: <br> <i class="fa fa-map-marker" aria-hidden="true"></i> From {{booking.pickUpLocation}} to {{booking.dropOffLocation}}<br> <i class="fa fa-calendar" aria-hidden="true"></i> {{booking.pickUpDate}}/{{booking.dropOffDate}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="card col-md-4 mx-auto pt-3 pb-5">
+                <h8>Ordered by weight (heaviest items first)</h8>
+                <ul class="list-group">
+                    {% for heaviest in heaviests %}
+                        <li class="list-group-item d-flex justify-content-between" >
+                            <span> Item: <br> {{heaviest.description}} <br> (volume = {{heaviest.volume}}, <br>weight = {{heaviest.weight}})</span>
+                            {% for booking in bookings %}
+                                {% if heaviest.booking == booking %}
+                                    <span> Booking: <br> <i class="fa fa-map-marker" aria-hidden="true"></i> From {{booking.pickUpLocation}} to {{booking.dropOffLocation}}<br> <i class="fa fa-calendar" aria-hidden="true"></i> {{booking.pickUpDate}}/{{booking.dropOffDate}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="card col-md-4 mx-auto pt-3 pb-5">
+                <h8>Ordered by volume (largest items first)</h8>
+                <ul class="list-group">
+                    {% for largest in largests %}
+                        <li class="list-group-item d-flex justify-content-between" >
+                            <span> Item: <br> {{largest.description}} <br> (volume = {{largest.volume}}, <br> weight = {{largest.weight}})</span>
+                            {% for booking in bookings %}
+                                {% if largest.booking == booking %}
+                                    <span> Booking: <br> <i class="fa fa-map-marker" aria-hidden="true"></i> From {{booking.pickUpLocation}} to {{booking.dropOffLocation}}<br> <i class="fa fa-calendar" aria-hidden="true"></i> {{booking.pickUpDate}}/{{booking.dropOffDate}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        <h8 class="card-title text-center"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> These are examples and might not be the best possible ways to load your truck: only three parameters have been taken into account (weight, volume, and drop-off date). Make amendments where needed.</h8>
+        </div>
+        
+
+    </div>
+
+    <div  class ="card col-md-4 mx-auto pt-3 ">
+        <div style="background-color:#D4E3D4" class="card-header text-center">
+            <h7> <i class="fa fa-info" aria-hidden="true"></i>   Additional information and tips </h7>
+        </div><br>
+        <div>
+            <span>Your truck's maximum capacity: {{truck.volume}} m<sup>3</sup></span><br>
+            <span>Remaining volume: {{itinerary.remainingVolume}} m<sup>3</sup> </span>
+            {% if itinerary.remainingVolume >= 2 %}
+                <span class="badge badge-primary"> you may add more bookings to this itinerary</span>
+            {% endif %}
+            <br><span>Space utilization for this trip: {{space_ut}} %</span><br>
+        </div><br>
+        <div>
+            <span>The parameters used in order to distribute the weight evenly in your truck: </span><br>
+            
+            <ul>
+                <li> Heavier items should be placed towards the front of the truck (for stability of the truck)</li>
+                <li> Lighter items should go on top of the heavy cargos </li>
+                <li> Large items should be placed vertically where possible </li>
+                <li> Load smallest and lightest items last </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

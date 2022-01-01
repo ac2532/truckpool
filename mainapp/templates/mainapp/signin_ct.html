@@ -1,0 +1,43 @@
+{% extends "mainapp/base_ct.html" %}
+{% block content %}
+{% load static %}
+
+<div class="card col-md-4 mx-auto pt-2 pb-2">
+    <form method="POST" action="{% url 'mainapp:signin_submit_ct' %}">
+        <div class="card-header">
+            <h3 class="card-title text-center">Login to your account</h3>
+        </div>
+        <div class="card-body">
+            {% if error %}
+            <div class="alert alert-danger">
+                Your username or password didn't match. Please try again.
+            </div>
+            {% endif %}
+            {% if logout %}
+            <div class="alert alert-warning">
+                You were logged out of the system.
+            </div>
+            {% endif %}
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" placeholder="Username" name="username">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" placeholder="Password" name="password">
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-block btn-primary">Login</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

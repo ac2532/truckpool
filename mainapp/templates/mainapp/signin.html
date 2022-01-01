@@ -1,0 +1,27 @@
+{% extends "mainapp/base_ct.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="card col-md-4 mx-auto pt-3 pb-5">
+    <form >
+    <div class="card-header">
+            <h3 class="card-title text-center">Login</h3>
+    </div>
+        <div class="card-footer text-center">
+            <h6> <h6>
+            <a  href="{% url 'mainapp:signin_ct' %}" class="btn btn-block btn-primary">I am a Customer</a>
+        </div>
+        <div class="card-footer text-center" >
+            <h6> <h6>
+            <a href="{% url 'mainapp:signin_td' %}" class="btn btn-block btn-primary">I am a Truck Driver</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

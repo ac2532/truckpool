@@ -1,0 +1,28 @@
+{% extends "mainapp/base_ct.html" %}
+{% block content %}
+{% load static %}
+<div>
+    <div style="background-color:#D4E3D4" class="card-header">
+    <h1 class="card-title text-center">My account</h1>
+    </div><br>
+    <div class="row">
+        <div class="mx-auto col-md-6 col-xs-12">
+            <div class="card card-body mx-2">
+                <h2 class="text-center">Account information</h2>
+                <h5><strong>First Name/Business Name: </strong> {{profile.user}}</h5>
+                {% if profile.user.first_name != blank %}
+                    <h5><strong>Last Name: </strong> {{profile.user.last_name}}</h5>
+                {% endif %}
+                <h5><strong>Username: </strong> {{profile.user.username}}</h5>
+                <h5><strong>Email: </strong>{{profile.user.email}}</h5>
+                <h5><strong>Email: </strong>{{profile.contactNo}}</h5>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

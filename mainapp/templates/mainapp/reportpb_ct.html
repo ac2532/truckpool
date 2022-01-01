@@ -1,0 +1,33 @@
+{% extends "mainapp/base_ct.html" %}
+
+
+{% block content %}
+{% load static %}
+<style>
+</style>
+
+<div class="card col-md-10 mx-auto pt-2 pb-2">
+    <form method="POST" action="{% url 'mainapp:add_item' %}">
+        <div style="background-color:#D4E3D4" class="card-header">
+            <h3 class="card-title text-center">Report a problem</h3>
+        </div>
+        <div class="card-body">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Describe the problem</label>
+                <textarea class="form-control" placeholder="Description" rows="3" name="description"></textarea>
+            </div>
+
+            <div>
+                <a href={% url 'mainapp:pbsuccess_ct' %} class="btn btn-block btn-primary">Confirm</a>
+            </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

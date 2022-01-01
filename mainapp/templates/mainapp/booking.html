@@ -1,0 +1,86 @@
+{% extends "mainapp/base_ct.html" %}
+
+
+{% block content %}
+{% load static %}
+<div class="col-md-10 mx-auto pt-2 pb-2">
+    <div class="card">
+        <form method="POST" action="{% url 'mainapp:booking' %}">
+            <div style="background-color:#D4E3D4" class="card-header">
+                <h3 class="card-title text-center">Create a new Booking</h3>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                <div class="alert alert-danger">
+                    Please fill in all the fields
+                </div>
+                {% endif %}
+
+                {% csrf_token %}
+
+
+                <div class="form-group">
+                    <label>Pickup/Dropoff</label><br>
+                    <select onChange="loadMap()" id="pickupSelect" name="pickUpLocation" class="selectpicker" data-live-search="true">
+                        {% for city in cities%}
+                            <option>{{city.city_name}}</option>
+                        {% endfor %}
+                    </select>
+                    <img onClick="swap()" src="{% static 'mainapp/swap_green.png' %}" height="40">
+                    <select onChange="loadMap()" id="dropoffSelect" name="dropOffLocation" class="selectpicker" data-live-search="true">
+                        {% for city in cities%}
+                            <option>{{city.city_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="in-pickup">Preferred pickup date</label><br>
+                    <input type="date"  class="datepicker" id="pickup" name="pickUpDate" value="2021-05-01" min="2021-05-01" max="2022-12-31">
+                </div>
+
+                <div class="form-group">
+                    <label for="in-pickup">Preferred dropoff date (on or before)</label><br>
+                    <input type="date"  class="datepicker" id="dropoff" name="dropOffDate" value="2021-05-01" min="2021-05-01" max="2022-12-31">
+                </div>
+
+
+                <iframe allowfullscreen frameborder="0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAqrcgHv9Prnh5vMtaDEJbYVvjlyQPwDNI&amp;origin=paris%2C+France&amp;destination=londres%2C+France&amp;zoom=11" loading="lazy" width="100%" height="400"></iframe>
+                
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-block btn-primary">Add booking</button>
+                </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    
+    function swap(){
+        var options1 = $("#pickupSelect").val();
+        var options2 = $("#dropoffSelect").val();
+        $("#pickupSelect").val(options2).change();
+        $("#dropoffSelect").val(options1).change();
+    }
+
+    function loadMap(){
+        $("iframe").attr('src',getUrl());
+    }
+
+    function getUrl() {
+
+        var origin = $("#pickupSelect").val();
+        var destination = $("#dropoffSelect").val();
+
+        return "https://www.google.com/maps/embed/v1/directions?key=AIzaSyAqrcgHv9Prnh5vMtaDEJbYVvjlyQPwDNI&origin="+origin+"&destination="+destination+""
+    }
+    loadMap()
+    //$( function() {
+     //   $( ".datepicker" ).datepicker(
+    //        { dateFormat: 'yy-mm-dd' }
+    //    ); 
+    //});
+</script>
+{% endblock scripts %}

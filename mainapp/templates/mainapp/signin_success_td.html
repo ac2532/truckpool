@@ -1,0 +1,18 @@
+{% extends "mainapp/base_td.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="alert alert-success text-center col-md-5 mx-auto">
+    You are logged in successfully!<br>
+    <a href="{% url 'mainapp:index_td' %}"><i class="fa fa-home" aria-hidden="true"></i>Go to homepage</a><br>
+    <a href="{% url 'mainapp:mytruck' %}"><i class="fa fa-truck" aria-hidden="true"></i>Add/Check your truck's information</a>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    // SCRIPTS
+</script>
+{% endblock scripts %}

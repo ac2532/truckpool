@@ -1,0 +1,108 @@
+{% extends "mainapp/base_td.html" %}
+{% block content %}
+{% load static %}
+
+<div class="row">
+    <div class="mx-auto col-md-10 col-xs-12">
+        <div class="card card-body mx-2">
+            {% if exist %}
+                <div style="background-color:#D4E3D4" class="card-header">
+                    <h2 class="text-center">My Truck Information</h2>
+                </div><br>
+                <h5><strong>Number plate: </strong> {{truck.plateNo}} </h5>
+                <h5><strong>Policy Number: </strong> {{truck.policyNo}} </h5>
+                <h5><strong>Model: </strong> {{truck.model}} </h5>
+                <h5><strong>Year of Production: </strong>{{truck.productionYear}}</h5>
+                <h5><strong>Mileage: </strong>{{truck.mileage}} kms</h5>
+                <h5><strong>Volume Capacity: </strong>{{truck.volume}} m<sup>3</sup> </h5>
+                <h5><strong>Maximum Payload Capacity: </strong>{{truck.max_capacity}} kgs </h5>
+
+            {% else %}
+                <form method="POST" action="{% url 'mainapp:mytruck' %}">
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            Please fill in all the fields
+                        </div>
+                    {% endif %}
+                    {% csrf_token %}
+                    <div style="background-color:#D4E3D4" class="card-header">
+                        <h2 class="text-center">Add Truck</h2>
+                    </div><br>
+                    <div class="form-group">
+                        <label>Plate Number:</label>
+                        <input type="text" class="form-control" placeholder="plate no." name="plateNo">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Policy Number:</label>
+                        <input type="text" class="form-control" placeholder="policy no." name="policyNo">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Model:</label>
+                        <input type="text" class="form-control" placeholder="model" name="model">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Year of Production:</label>
+                        <input type="number" class="form-control" placeholder="production year" name="productionYear">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mileage:</label>
+                        <input type="number" class="form-control" placeholder="mileage" name="mileage">
+                    </div>
+
+                    <div class> 
+                        <img width="20" src="{% static 'mainapp/measure.png' %}">
+                        <label>Truck Size (in m): </label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" placeholder="length" id="length" name="length">
+                        <input type="number" class="form-control" placeholder="width" id="widthData" name="width">
+                        <input type="number" class="form-control" placeholder="height" onKeyUp="calculateVolume(length.value, widthData.value, heightData.value)" id="heightData" name="height">
+                        <input type="button" class="btn btn-secondary" id="calculate" onClick="calculateVolume(length.value, widthData.value, heightData.value)" value="Calculate Volume"/>
+                        <input type="number" class="form-control" placeholder="volume" id="volume" name="volume">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">m<sup>3</sup></span>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Maximum payload capacity of the truck:</label><br>
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="Max weight" name="max_capacity">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">kgs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-block btn-primary">Confirm truck information</button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    var $ = function(id) {
+        return document.getElementById(id);
+    };
+    var amountVolume = 0;
+    function calculateVolume(length, width, height) {
+        console.log(length,width,height);
+        amountVolume = parseFloat(length) * parseFloat(width) * parseFloat(height);
+        var volumeRound = amountVolume.toFixed(2);
+        $('volume').value = volumeRound;
+    };
+</script>
+{% endblock scripts %}

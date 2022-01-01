@@ -1,0 +1,149 @@
+{% extends "mainapp/base_td.html" %}
+
+
+{% block content %}
+{% load static %}
+<div class="col-md-10 mx-auto pt-2 pb-2">
+    <div class="card">
+        <form method="POST" action="{% url 'mainapp:newdelivery' %}">
+            <div style="background-color:#D4E3D4" class="card-header">
+                <h3 class="card-title text-center">Add a new delivery itinerary</h3>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                <div class="alert alert-danger">
+                    Please fill in all the fields
+                </div>
+                {% endif %}
+
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Departure/Arrival city</label><br>
+                    <select onChange="loadMap()" id="pickupSelect" name="departureLocation" class="selectpicker" data-live-search="true">
+                        {% for city in cities%}
+                            <option>{{city.city_name}}</option>
+                        {% endfor %}
+                    </select>
+                    <img onClick="swap()" src="{% static 'mainapp/swap_green.png' %}" height="40">
+                    <select onChange="loadMap()" id="dropoffSelect" name="arrivalLocation" class="selectpicker" data-live-search="true">
+                        {% for city in cities%}
+                            <option>{{city.city_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="in-pickup">Departure date</label><br>
+                    <input type="date" class="datepicker" id="pickup" name="departureDate" value="2021-05-01" min="2021-05-01" max="2022-12-31">
+                </div>
+
+                <div class="form-group">
+                    <label for="in-pickup">Arrival date</label><br>
+                    <input type="date" class="datepicker" id="dropoff" name="arrivalDate" value="2021-05-01" min="2021-05-01" max="2022-12-31">
+                </div>
+
+
+
+                <iframe allowfullscreen frameborder="0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAqrcgHv9Prnh5vMtaDEJbYVvjlyQPwDNI&amp;origin=paris%2C+France&amp;destination=londres%2C+France&amp;zoom=11" loading="lazy" width="100%" height="400"></iframe>
+                
+                <div> 
+                    <label>Your truck's maximum volume and payload capacity: </label>
+                </div>
+                <div  class="input-group mb-3"> 
+                    <input disabled="disabled" value="{{truck.volume}}"> </input>
+                     <div class="input-group-prepend">
+                        <span class="input-group-text">m<sup>3</sup></span>
+                    </div> &nbsp;
+                    <input disabled="disabled" value="{{truck.max_capacity}}"> </input>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">kgs</span>
+                    </div>
+                </div>
+
+                <div class> 
+                    <label>Volume capacity of the truck that is already used: </label>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" placeholder="length" id="length" name="length">
+                    <input type="number" class="form-control" placeholder="width" id="widthData" name="width">
+                    <input type="number" class="form-control" placeholder="height" onKeyUp="calculateVolume(length.value, widthData.value, heightData.value, {{truck.volume}})" id="heightData" name="height">&nbsp;
+                    <input type="button" class="btn btn-secondary" id="calculate" onClick="calculateVolume(length.value, widthData.value, heightData.value, {{truck.volume}})" value="Calculate Volume"/> &nbsp;
+                    <input type="number" class="form-control" placeholder="volume" id="volume" name="volume" onKeyUp="calculateRest(volume.value, {{truck.volume}})">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">m<sup>3</sup></span>
+                    </div>
+                </div>
+                
+                <div class> 
+                    <label>Remaining volume capacity: </label>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" placeholder="remaining volume" id="remainingVolume" name="remainingVolume">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">m<sup>3</sup></span>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-block btn-primary">Add itinerary</button>
+                </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    //map swap+appears directly when changing the city location
+    function swap(){
+        var options1 = $("#pickupSelect").val();
+        var options2 = $("#dropoffSelect").val();
+        $("#pickupSelect").val(options2).change();
+        $("#dropoffSelect").val(options1).change();
+    }
+
+    function loadMap(){
+        $("iframe").attr('src',getUrl());
+    }
+
+    function getUrl() {
+
+        var origin = $("#pickupSelect").val();
+        var destination = $("#dropoffSelect").val();
+
+        return "https://www.google.com/maps/embed/v1/directions?key=AIzaSyAqrcgHv9Prnh5vMtaDEJbYVvjlyQPwDNI&origin="+origin+"&destination="+destination+""
+    }
+    loadMap()
+
+
+
+    var amountVolume = 0;
+    function calculateVolume(length, width, height, vol_truck) {
+        console.log(length,width,height,vol_truck);
+        amountVolume = parseFloat(length) * parseFloat(width) * parseFloat(height);
+        var volumeRound = amountVolume.toFixed(2);
+        remaining_vol = parseFloat(vol_truck) - parseFloat(volumeRound);
+        //var restvolumeRound = remaining_vol.toFixed(2);
+        $('#volume').val(volumeRound);
+        $('#remainingVolume').val(remaining_vol);
+    };
+
+    function calculateRest(volume, vol_truck) {
+        console.log(volume,vol_truck);
+        var volumeRound = parseFloat(volume).toFixed(2);
+        remaining_vol = parseFloat(vol_truck) - parseFloat(volumeRound);
+        $('#remainingVolume').val(remaining_vol);
+    };
+
+
+
+    //$( function() {
+    //    $( ".datepicker" ).datepicker(
+    //        { dateFormat: 'yy-mm-dd' }
+    //    ); 
+    //});
+    
+</script>
+{% endblock scripts %}

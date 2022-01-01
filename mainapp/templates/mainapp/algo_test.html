@@ -1,0 +1,31 @@
+{% extends "mainapp/base_td.html" %}
+{% block content %}
+{% load static %}
+
+<form method="post" action="">
+{% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Volume Item 1</label>
+        <input type="number" name="volume1" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Volume Item 2</label>
+        <input type="number" name="volume2" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Volume Item 3</label>
+        <input type="number" name="volume3" class="form-control">
+    </div>
+
+    <div>
+        <button class="btn btn-primary">Estimate:</button>
+    </div>
+</form>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock scripts %}
