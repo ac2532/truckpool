@@ -1,60 +1,27 @@
 # Truckpool, web-application for communication and scheduling  
 
-## Access the deployed web application:
+## What is Truckpool?
 
-Deployed website URL: https://truckpool.herokuapp.com 
-
-URL to sign up: https://truckpool.herokuapp.com/signup/ 
-
-URL to login: https://truckpool.herokuapp.com/signin/
-
-### Few test users:
-
-#### admin: 
-* url to login: https://truckpool.herokuapp.com/admin/ 
-* username: admin
-* password: admin
-
-#### truck driver:
-* url to login: https://truckpool.herokuapp.com/signin_td/ 
-* username: mariefranchouillard
-* password: driver
-
-#### customer:
-* url to login: https://truckpool.herokuapp.com/signin_ct/ 
-* username: saram
-* password: customer
-
-
-
-## Run the website on a local server
-
-To run this project, install the git file and run the following command lines in the terminal:
+* Video presentation: 
 
 ```
-$ conda create -n 'name' python=3.8 //This will create a virtual environment 
+$ Truckpool is an eco-friendly, cost- effective and time-saving solution for a Truck-Sharing System. 
 
-$ conda activate 'name' //to activate the virtual environment previously created
+$ The web-application puts truck drivers in contact with customers wishing to send goods to other cities. 
 
-$ pip install django
+$ Optimization algorithms are used in this platform in order to maximize the truck’s capacity given a set of cargos, and increase the number of deliveries per journey while optimizing the delivery time.
 
-$ pip install makemigrations //create database
+$ The idea emerged after noticing the main issues of the current transportation system: it is time-consuming, money-wasting, and unsustainable on the long run.
 
-$ pip install migrate
+$ Truckpool aims to cut gas emissions by using scheduling algorithms, especially greedy algorithms as optimization problems are being considered.
 
-$ python manage.py runserver //to run the webapp locally
-```
+$ All in all, in this website, private truck owners and drivers can post their location, itinerary, truck size and payload capacity. 
 
-The url to sign up is: 'http://127.0.0.1:8000/signup/'
+$ The target clients are: companies and individuals who are looking for a quick way to deliver their merchandise; and private truck owners wishing to find new clients.
 
-The url to login is: 'http://127.0.0.1:8000/signin/'
+$ These shipments can be at regional, national or international scale (precisely Europe, and North Africa).
 
-The admin url: 'http://127.0.0.1:8000/admin/'
-
-To create a superuser (admin with a staff status):
+$ By creating a service platform which puts companies and individual in touch with truck-drivers, they will be able to proceed with a quick, efficient and profitable way to deliver merchandise and products. The time- and money-consumption issue would eventually be resolved. Furthermore, the truck-sharing system would potentially reduce gas emissions and help with the environmental concerns.
 
 ```
-$ python manage.py createsuperuser
-```
-
 
