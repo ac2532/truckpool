@@ -1,6 +1,4 @@
-# Truckpool, web-application for communication and scheduling  
-
-## What is Truckpool?
+## Truckpool, web-application for communication and scheduling  
 
 ```
 * Video presentation: 
