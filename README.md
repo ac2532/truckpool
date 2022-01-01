@@ -2,26 +2,27 @@
 
 ## What is Truckpool?
 
+```
 * Video presentation: 
-
 ```
-$ Truckpool is an eco-friendly, cost- effective and time-saving solution for a Truck-Sharing System. 
 
-$ The web-application puts truck drivers in contact with customers wishing to send goods to other cities. 
+* Truckpool is an eco-friendly, cost- effective and time-saving solution for a Truck-Sharing System. 
 
-$ Optimization algorithms are used in this platform in order to maximize the truck’s capacity given a set of cargos, and increase the number of deliveries per journey while optimizing the delivery time.
+* The web-application puts truck drivers in contact with customers wishing to send goods to other cities. 
 
-$ The idea emerged after noticing the main issues of the current transportation system: it is time-consuming, money-wasting, and unsustainable on the long run.
+* Optimization algorithms are used in this platform in order to maximize the truck’s capacity given a set of cargos, and increase the number of deliveries per journey while optimizing the delivery time.
 
-$ Truckpool aims to cut gas emissions by using scheduling algorithms, especially greedy algorithms as optimization problems are being considered.
+* The idea emerged after noticing the main issues of the current transportation system: it is time-consuming, money-wasting, and unsustainable on the long run.
 
-$ All in all, in this website, private truck owners and drivers can post their location, itinerary, truck size and payload capacity. 
+* Truckpool aims to cut gas emissions by using scheduling algorithms, especially greedy algorithms as optimization problems are being considered.
 
-$ The target clients are: companies and individuals who are looking for a quick way to deliver their merchandise; and private truck owners wishing to find new clients.
+* All in all, in this website, private truck owners and drivers can post their location, itinerary, truck size and payload capacity. 
 
-$ These shipments can be at regional, national or international scale (precisely Europe, and North Africa).
+* The target clients are: companies and individuals who are looking for a quick way to deliver their merchandise; and private truck owners wishing to find new clients.
 
-$ By creating a service platform which puts companies and individual in touch with truck-drivers, they will be able to proceed with a quick, efficient and profitable way to deliver merchandise and products. The time- and money-consumption issue would eventually be resolved. Furthermore, the truck-sharing system would potentially reduce gas emissions and help with the environmental concerns.
+* These shipments can be at regional, national or international scale (precisely Europe, and North Africa).
 
-```
+* By creating a service platform which puts companies and individual in touch with truck-drivers, they will be able to proceed with a quick, efficient and profitable way to deliver merchandise and products. The time- and money-consumption issue would eventually be resolved. Furthermore, the truck-sharing system would potentially reduce gas emissions and help with the environmental concerns.
+
+
 
