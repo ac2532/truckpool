@@ -1,7 +1,7 @@
 ## Truckpool, web-application for communication and scheduling  
 
 ```
-<a href="https://youtu.be/EDlOsSb6Vls" target="_blank">Video presentation</a> 
+Video presentation: "[https://youtu.be/EDlOsSb6Vls]"
 ```
 
 * Truckpool is an eco-friendly, cost- effective and time-saving solution for a Truck-Sharing System. 
