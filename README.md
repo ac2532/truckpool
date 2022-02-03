@@ -16,9 +16,9 @@ Click [here](https://youtu.be/EDlOsSb6Vls) for the video presentation of the pro
     - private truck owners wishing to find new clients
 
 * Optimization algorithms are used in this platform to:
-    1. maximize the truck’s capacity 
-    2. increase the number of deliveries per journey 
-    3. reduce the delivery time
+    - maximize the truck’s capacity 
+    - increase the number of deliveries per journey 
+    - reduce the delivery time
  
 * Truckpool aims to cut greenhouse gas emissions by using scheduling algorithms and coordinating the deliveries
 
