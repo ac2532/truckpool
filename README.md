@@ -1,8 +1,7 @@
-
-```
 ## Truckpool, web-application for communication and scheduling  
 ```
-Click **[here]**(https://youtu.be/EDlOsSb6Vls) for the video presentation of the project.
+```
+Click **[here](https://youtu.be/EDlOsSb6Vls)** for the video presentation of the project.
 
 * Truckpool is an eco-friendly, cost effective and time-saving Truck-Sharing System implemented using the framework Django.
 
