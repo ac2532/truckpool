@@ -12,8 +12,8 @@ Click [here](https://youtu.be/EDlOsSb6Vls) for the video presentation of the pro
 * These shipments can be at regional, national or international scale (precisely Europe, and North Africa).
 
 * The target clients are: 
-* - companies and individuals who are looking for a quick way to deliver their merchandise
-* - private truck owners wishing to find new clients
+- companies and individuals who are looking for a quick way to deliver their merchandise
+- private truck owners wishing to find new clients
 
 * Optimization algorithms are used in this platform to:
 1. maximize the truck’s capacity 
